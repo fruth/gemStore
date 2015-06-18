@@ -1,0 +1,8 @@
+# Turn on the rewrite engine
+
+Header set Access-Control-Allow-Credentials true
+Header set Access-Control-Allow-Origin "http://localhost:4200"
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule (.+) index.php/$1 [L,QSA]
