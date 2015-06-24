@@ -13,7 +13,12 @@ Server::create('/')
     ->addGetRoute('test', function(){
         return 'Yay!';
     })
-    ->addGetRoute('items/(.*)', function($id){
+    ->addGetRoute('items', function(){
+      $itemHandler = new ItemHandler();
+      $item = $itemHandler->getItems();
+      return array('items' => $item);
+    })
+    ->addGetRoute('item/(.*)', function($id){
       $itemHandler = new ItemHandler();
       $item = $itemHandler->getItems($id);
       return array('item' => $item);

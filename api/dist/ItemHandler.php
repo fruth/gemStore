@@ -11,10 +11,10 @@ class ItemHandler {
 
   private $username   = "root";
   private $password   = "barley";
-  private $database   = "gemStore";
+  private $database   = "gem_store";
 
   // Private function for saving email to MySQL database
-  public function getItems($id) {
+  public function getItems($id = 0) {
 
     $mysql = new mysqli('localhost', $this->username, $this->password, $this->database);
 
@@ -22,18 +22,28 @@ class ItemHandler {
       die("Connection failed: " . $mysql->connect_error);
     }
 
-    $sql = "SELECT * FROM items WHERE id=" . $id . " LIMIT 1";
+    if ($id !== 0) {
+      $sql = "SELECT * FROM items WHERE slug='" . $id . "' LIMIT 1";
+      $result = $mysql->query($sql);
+      $items;
+      while ( $db_field = $result->fetch_assoc() ) {
+        $items = $db_field;
+      }
+    } else {
+      $sql = "SELECT * FROM items";
+      $result = $mysql->query($sql);
 
-    $result = $mysql->query($sql);
-    $item = false;
+      $items = array();
 
-    while ( $db_field = $result->fetch_assoc() ) {
-      $item = $db_field;
+      while ( $db_field = $result->fetch_assoc() ) {
+        array_push($items, $db_field);
+      }
     }
 
     $mysql->close();
 
-    return $item;
+    return $items;
   }
+
 }
 ?>

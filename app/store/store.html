@@ -1,1 +1,11 @@
-<p>This is the partial for store.</p>
+<div class="items">
+  <div ng-repeat="item in items">
+    <div class="image">
+      <img src="{{item.image_url}}" />
+    </div>
+    <h3>{{item.name}}</h3>
+    <h4>${{item.price}}</h4>
+    <a href="#/item/{{item.slug}}"><button class="btn btn-primary">View</button></a>
+    <button class="btn btn-success">Purchase</button>
+  </div>
+</div>

@@ -9,6 +9,12 @@ angular.module('myApp.store', ['ngRoute'])
   });
 }])
 
-.controller('StoreCtrl', [function() {
+.controller('StoreCtrl', ['$scope', '$http', function($scope, $http) {
+
+  $http.get('../api/index.php/items').success(function(response) {
+    $scope.items = response.data.items;
+  });
+
+  $scope.name = 'Test';
 
 }]);

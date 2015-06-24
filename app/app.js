@@ -4,9 +4,17 @@
 angular.module('myApp', [
   'ngRoute',
   'myApp.store',
-  'myApp.view2',
+  'myApp.item',
   'myApp.version'
 ]).
 config(['$routeProvider', function($routeProvider) {
-  $routeProvider.otherwise({redirectTo: '/store'});
+  $routeProvider.when('/item/:itemSlug', {
+    templateUrl: 'item/item.html',
+    controller: 'ItemCtrl'
+  })
+  .when('/store', {
+    templateUrl: 'store/store.html',
+    controller: 'StoreCtrl'
+  })
+  .otherwise({redirectTo: '/store'});
 }]);
